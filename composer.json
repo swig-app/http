@@ -1,0 +1,21 @@
+{
+    "name": "swig/http",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "^7.3",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ashley Clarke",
+            "email": "me@ashleyclarke.me"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Swig\\Http\\": "src/",
+            "Swig\\Http\\Test\\": "tests/"
+        }
+    }
+}

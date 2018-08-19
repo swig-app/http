@@ -107,4 +107,15 @@ class AssertTest extends TestCase
 
         $assert->assertUnauthorized();
     }
+
+    /**
+     * @test
+     */
+    public function it_can_verify_any_status()
+    {
+        $check = new Check(new Response(204));
+        $assert = new Assert($check);
+
+        $assert->assertStatus(204);
+    }
 }

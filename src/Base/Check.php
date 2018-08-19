@@ -3,6 +3,7 @@
 namespace Swig\Http\Base;
 
 use Psr\Http\Message\ResponseInterface;
+use Swig\Http\Response;
 
 /**
  * Class Base
@@ -12,27 +13,25 @@ use Psr\Http\Message\ResponseInterface;
 abstract class Check
 {
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var \Swig\Http\Response $response
      */
     protected $response;
 
     /**
      * Base constructor.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Swig\Http\Response $response
      */
-    public function __construct(ResponseInterface $response)
+    public function __construct(Response $response)
     {
         $this->response = $response;
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return \Swig\Http\Response $response
      */
     public function response()
     {
         return $this->response;
     }
-
-
 }

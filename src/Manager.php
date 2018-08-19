@@ -3,6 +3,7 @@
 namespace Swig\Http;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\TransferStats;
 
 /**
  * Class Manager
@@ -23,10 +24,22 @@ class Manager
         ]);
     }
 
+    public function request($method, $uri = '', array $options = [])
+    {
+        $stats = null;
+        $options = array_merge($options, [
+            'on_stats' => function (TransferStats $transferStats) use (&$stats) {
+                $stats = $transferStats;
+            }
+        ]);
+
+        $response = $this->client->request($method, $uri, $options);
+
+        return Response::from($response, $stats);
+    }
+
     public function get($path)
     {
-        $response = $this->client->get($path);
-
-        return Response::from($response);
+        return $this->request('GET', $path);
     }
 }

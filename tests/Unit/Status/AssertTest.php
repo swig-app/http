@@ -2,20 +2,31 @@
 
 namespace Swig\Http\Test\Unit\Status;
 
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\TransferStats;
 use PHPUnit\Framework\TestCase;
 use Swig\Http\Status\Assert;
 use Swig\Http\Status\Check;
 
 class AssertTest extends TestCase
 {
+    public function assert(Response $response)
+    {
+        $stats = new TransferStats(new Request('GET', 'http://example.com'), $response, 0.2);
+
+        $check = new Check(\Swig\Http\Response::from($response, $stats));
+
+        return new Assert($check);
+    }
+
     /**
      * @test
      */
     public function it_can_verify_a_status_is_informational()
     {
-        $check = new Check(new Response(100));
-        $assert = new Assert($check);
+        $response = new Response(100);
+        $assert = $this->assert($response);
 
         $assert->assertInformational();
     }
@@ -25,8 +36,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_a_status_is_successful()
     {
-        $check = new Check(new Response(200));
-        $assert = new Assert($check);
+        $response = new Response(200);
+        $assert = $this->assert($response);
 
         $assert->assertSuccessful();
     }
@@ -36,8 +47,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_a_status_is_redirection()
     {
-        $check = new Check(new Response(300));
-        $assert = new Assert($check);
+        $response = new Response(300);
+        $assert = $this->assert($response);
 
         $assert->assertRedirection();
     }
@@ -47,8 +58,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_a_status_is_client_error()
     {
-        $check = new Check(new Response(400));
-        $assert = new Assert($check);
+        $response = new Response(400);
+        $assert = $this->assert($response);
 
         $assert->assertClientError();
     }
@@ -58,8 +69,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_a_status_is_server_error()
     {
-        $check = new Check(new Response(500));
-        $assert = new Assert($check);
+        $response = new Response(500);
+        $assert = $this->assert($response);
 
         $assert->assertServerError();
     }
@@ -69,8 +80,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_if_a_status_is_200_ok()
     {
-        $check = new Check(new Response(200));
-        $assert = new Assert($check);
+        $response = new Response(200);
+        $assert = $this->assert($response);
 
         $assert->assertOk();
     }
@@ -80,8 +91,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_if_a_status_is_404_not_found()
     {
-        $check = new Check(new Response(404));
-        $assert = new Assert($check);
+        $response = new Response(404);
+        $assert = $this->assert($response);
 
         $assert->assertNotFound();
     }
@@ -91,8 +102,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_if_a_status_is_403_forbidden()
     {
-        $check = new Check(new Response(403));
-        $assert = new Assert($check);
+        $response = new Response(403);
+        $assert = $this->assert($response);
 
         $assert->assertForbidden();
     }
@@ -102,8 +113,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_if_a_status_is_401_unauthorized()
     {
-        $check = new Check(new Response(401));
-        $assert = new Assert($check);
+        $response = new Response(401);
+        $assert = $this->assert($response);
 
         $assert->assertUnauthorized();
     }
@@ -113,8 +124,8 @@ class AssertTest extends TestCase
      */
     public function it_can_verify_any_status()
     {
-        $check = new Check(new Response(204));
-        $assert = new Assert($check);
+        $response = new Response(204);
+        $assert = $this->assert($response);
 
         $assert->assertStatus(204);
     }

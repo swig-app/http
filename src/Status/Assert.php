@@ -16,7 +16,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->isInformational(),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a informational status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a informational status code.'
         );
     }
 
@@ -24,7 +24,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->isSuccessful(),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a successful status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a successful status code.'
         );
     }
 
@@ -32,7 +32,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->isRedirection(),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a redirection status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a redirection status code.'
         );
     }
 
@@ -40,7 +40,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->isClientError(),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a client error status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a client error status code.'
         );
     }
 
@@ -48,7 +48,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->isServerError(),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a server error status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a server error status code.'
         );
     }
 
@@ -56,7 +56,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->is(200),
-            'Response status code ['.$this->check->response()->getStatusCode().'] does not match expected 200 status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] does not match expected 200 status code.'
         );
     }
 
@@ -64,7 +64,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->is(404),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a not found status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a not found status code.'
         );
     }
 
@@ -72,7 +72,7 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->is(403),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a forbidden status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a forbidden status code.'
         );
     }
 
@@ -80,13 +80,13 @@ class Assert extends Assertion
     {
         PHPUnit::assertTrue(
             $this->check->is(401),
-            'Response status code ['.$this->check->response()->getStatusCode().'] is not a forbidden status code.'
+            'Response status code ['.$this->check->response()->original()->getStatusCode().'] is not a forbidden status code.'
         );
     }
 
     public function assertStatus($status)
     {
-        $actual = $this->check->response()->getStatusCode();
+        $actual = $this->check->response()->original()->getStatusCode();
 
         PHPUnit::assertTrue(
             $this->check->is($status),

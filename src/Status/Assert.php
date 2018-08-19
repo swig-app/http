@@ -28,6 +28,30 @@ class Assert extends Assertion
         );
     }
 
+    public function assertRedirection()
+    {
+        PHPUnit::assertTrue(
+            $this->check->isRedirection(),
+            'Response status code ['.$this->check->response()->getStatusCode().'] is not a redirection status code.'
+        );
+    }
+
+    public function assertClientError()
+    {
+        PHPUnit::assertTrue(
+            $this->check->isClientError(),
+            'Response status code ['.$this->check->response()->getStatusCode().'] is not a client error status code.'
+        );
+    }
+
+    public function assertServerError()
+    {
+        PHPUnit::assertTrue(
+            $this->check->isServerError(),
+            'Response status code ['.$this->check->response()->getStatusCode().'] is not a server error status code.'
+        );
+    }
+
     public function assertOk()
     {
         PHPUnit::assertTrue(

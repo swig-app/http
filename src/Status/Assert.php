@@ -55,7 +55,7 @@ class Assert extends Assertion
     public function assertOk()
     {
         PHPUnit::assertTrue(
-            $this->check->isOk(),
+            $this->check->is(200),
             'Response status code ['.$this->check->response()->getStatusCode().'] does not match expected 200 status code.'
         );
     }
@@ -63,7 +63,7 @@ class Assert extends Assertion
     public function assertNotFound()
     {
         PHPUnit::assertTrue(
-            $this->check->isNotFound(),
+            $this->check->is(404),
             'Response status code ['.$this->check->response()->getStatusCode().'] is not a not found status code.'
         );
     }
@@ -71,7 +71,15 @@ class Assert extends Assertion
     public function assertForbidden()
     {
         PHPUnit::assertTrue(
-            $this->check->isForbidden(),
+            $this->check->is(403),
+            'Response status code ['.$this->check->response()->getStatusCode().'] is not a forbidden status code.'
+        );
+    }
+
+    public function assertUnauthorized()
+    {
+        PHPUnit::assertTrue(
+            $this->check->is(401),
             'Response status code ['.$this->check->response()->getStatusCode().'] is not a forbidden status code.'
         );
     }

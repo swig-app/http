@@ -63,4 +63,48 @@ class AssertTest extends TestCase
 
         $assert->assertServerError();
     }
+
+    /**
+     * @test
+     */
+    public function it_can_verify_if_a_status_is_200_ok()
+    {
+        $check = new Check(new Response(200));
+        $assert = new Assert($check);
+
+        $assert->assertOk();
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_verify_if_a_status_is_404_not_found()
+    {
+        $check = new Check(new Response(404));
+        $assert = new Assert($check);
+
+        $assert->assertNotFound();
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_verify_if_a_status_is_403_forbidden()
+    {
+        $check = new Check(new Response(403));
+        $assert = new Assert($check);
+
+        $assert->assertForbidden();
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_verify_if_a_status_is_401_unauthorized()
+    {
+        $check = new Check(new Response(401));
+        $assert = new Assert($check);
+
+        $assert->assertUnauthorized();
+    }
 }
